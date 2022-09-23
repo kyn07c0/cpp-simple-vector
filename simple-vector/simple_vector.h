@@ -212,12 +212,16 @@ class SimpleVector
         // Возвращает ссылку на элемент с индексом index
         Type& operator[](size_t index) noexcept
         {
+            assert(index < size_);
+            
             return array_[index];
         }
 
         // Возвращает константную ссылку на элемент с индексом index
         const Type& operator[](size_t index) const noexcept
         {
+            assert(index < size_);
+            
             return array_[index];
         }
 
@@ -384,7 +388,7 @@ class SimpleVector
         // Удаляет элемент вектора в указанной позиции
         Iterator Erase(ConstIterator pos)
         {
-            assert(pos >= begin() && pos <= end());
+            assert(pos >= begin() && pos < end());
 
             if(size_ == 0)
                 return nullptr;
