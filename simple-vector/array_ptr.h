@@ -30,6 +30,7 @@ class ArrayPtr
         ArrayPtr(ArrayPtr&& other) noexcept
         {
             raw_ptr_ = move(other.raw_ptr_);
+            other.raw_ptr_ = nullptr;
         }
 
         ~ArrayPtr()
@@ -46,9 +47,9 @@ class ArrayPtr
             {
                 return *this;
             }
+            
+            std::swap(raw_ptr_, rhs.raw_ptr_);
 
-            raw_ptr_ = rhs.raw_ptr_;
-            rhs.raw_ptr_ = nullptr;
             return *this;
         }
 
@@ -88,9 +89,7 @@ class ArrayPtr
         // Обменивается значениям указателя на массив с объектом other
         void swap(ArrayPtr& other) noexcept
         {
-            Type* tmp = raw_ptr_;
-            raw_ptr_ = other.Get();
-            other.raw_ptr_ = tmp;
+            std::swap(raw_ptr_, other.raw_ptr_);
         }
 
     private:
